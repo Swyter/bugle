@@ -147,7 +147,7 @@ class AspectParser:
 
     def LoadFile(self, filename):
         try:
-            f = file(filename, 'r')
+            f = open(filename, 'r')
             try:
                 globls = {}
                 values = eval(f.read(), globls)
@@ -170,8 +170,8 @@ class AspectParser:
         for aspect in list(self.aspects.values()):
             if aspect.explicit is not None:
                 explicit[aspect.name] = aspect.explicit
-        f = file(filename, 'w')
+        f = open(filename, 'w')
         try:
-            print >>f, repr(explicit)
+            f.write(repr(explicit))
         finally:
             f.close()

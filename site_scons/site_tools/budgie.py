@@ -13,7 +13,7 @@ import re
 
 def bc_scanner_function(node, env, path, arg = None):
     '''Searches a .bc file for INCLUDE lines'''
-    contents = node.get_contents()
+    contents = node.get_contents().decode('utf-8')
     matches = re.findall(r'^\s*INCLUDE\s*(\S+)\s*$', contents, re.M)
     deps = []
     for x in matches:

@@ -23,7 +23,7 @@ def move_tu(target, source, env):
             tu_name = os.path.join(dir, source_name) + ext
             exists = False
             try:
-                f = file(tu_name, 'r')
+                f = open(tu_name, 'r')
                 f.close()
                 exists = True
             except IOError:
