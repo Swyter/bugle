@@ -35,6 +35,7 @@ def move_tu(target, source, env):
     return 1
 
 def generate(env):
+    env['CC'] = "gcc-5" # swy: FIXME: hack
     env['TUCOM'] = '$CCCOM -fdump-translation-unit'
 
     tu_builder = env.Builder(
