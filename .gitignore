@@ -4,3 +4,5 @@
 /.sconf_temp
 /config.log
 /build
+/doc/DocBook/html
+/doc/DocBook/man
