@@ -24,7 +24,7 @@ if 'debugger' in aspects['parts']:
     gldb_env = conf.Finish()
 
     if not have_gtk:
-        print 'WARNING: GTK+ 2.4+ is needed for the debugger. It will not be built'
+        print('WARNING: GTK+ 2.4+ is needed for the debugger. It will not be built')
         aspects['parts'].remove('debugger')
         Return()
 
@@ -36,9 +36,9 @@ if 'debugger' in aspects['parts']:
         gldb_env.Append(CPPDEFINES = [('HAVE_GTKGLEXT', '1')])
     else:
         if not have_glew:
-            print 'WARNING: GLEW was not detected. The debugger will be missing features'
+            print('WARNING: GLEW was not detected. The debugger will be missing features')
         if not have_gtkglext:
-            print 'WARNING: GtkGLExt was not detected. The debugger will be missing features'
+            print('WARNING: GtkGLExt was not detected. The debugger will be missing features')
 
     # Non-GUI files
     gldb_shared = envs['host'].StaticObject([

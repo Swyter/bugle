@@ -31,7 +31,7 @@ def move_tu(target, source, env):
             if exists:
                 if str(target) != tu_name:
                     return env.Execute(Script.Move(target[-1], tu_name))
-    print ".tu file could not be found"
+    print(".tu file could not be found")
     return 1
 
 def generate(env):
@@ -51,10 +51,10 @@ def generate(env):
 
 def exists(env):
     if 'gcc' not in env['TOOLS']:
-        print "Warning: GCC not found. Did you list gcc before tu in the tools?"
+        print("Warning: GCC not found. Did you list gcc before tu in the tools?")
         return False
     v = env['CCVERSION'].split('.')
     if (v[0] == '4' and v[1] == '0') or (v[0] == '3' and v[1] == '0') or (v[0] < 3):
-        print "Warning: GCC %s does not support -fdump-translation-unit" % env['CCVERSION']
+        print("Warning: GCC %s does not support -fdump-translation-unit" % env['CCVERSION'])
         return False
     return True

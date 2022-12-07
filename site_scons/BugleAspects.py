@@ -5,7 +5,7 @@ import SCons
 class Aspect:
     def __init__(self, group, name, help, choices = None, default = None, metavar = None, multiple = False):
         if choices is None and multiple:
-            raise ValueError, 'multiple aspect can only be used with choices'
+            raise ValueError('multiple aspect can only be used with choices')
 
         self.group = group
         self.name = name
@@ -34,10 +34,10 @@ class Aspect:
         if self.multiple:
             for i in value:
                 if i not in self.choices:
-                    raise ValueError, "%s is not a valid value for %s" % (i, self.name)
+                    raise ValueError("%s is not a valid value for %s" % (i, self.name))
         elif self.choices is not None:
             if value not in self.choices:
-                raise ValueError, "%s is not a valid value for %s" % (value, self.name)
+                raise ValueError("%s is not a valid value for %s" % (value, self.name))
         self.value = value
         self.known = True
         self.explicit = explicit
@@ -48,7 +48,7 @@ class Aspect:
     def get(self):
         if not self.known:
             if self.on_stack:
-                raise RuntimeError, "Cyclic dependency computing " + self.name
+                raise RuntimeError("Cyclic dependency computing " + self.name)
             value = None
             if callable(self.default):
                 self.on_stack = True
@@ -87,17 +87,17 @@ class AspectParser:
 
     def Resolve(self):
         # Force callable defaults to run before postprocessing
-        for a in self.aspects.values():
+        for a in list(self.aspects.values()):
             a.get()
 
     def __setitem__(self, key, value):
         if key not in self.aspects:
-            raise RuntimeError, key + ' is not a valid option'
+            raise RuntimeError(key + ' is not a valid option')
         self.aspects[key].set(value)
 
     def __getitem__(self, key):
         if key not in self.aspects:
-            raise RuntimeError, key + ' is not a valid option'
+            raise RuntimeError(key + ' is not a valid option')
         return self.aspects[key].get()
 
     def __contains__(self, key):
@@ -107,16 +107,16 @@ class AspectParser:
         """
         Prints a user-readable description of the current configuration
         """
-        print
-        print "*** Configuration ***"
-        print
+        print()
+        print("*** Configuration ***")
+        print()
         for a in self.ordered:
             if a.get() is None:
                 continue;
             value = str(a)
             if value == '':
                 value = '<empty>'
-            print "%-20s = %-20s" % (a.name, value),
+            print("%-20s = %-20s" % (a.name, value), end=' ')
             tags = []
             if a.explicit is not None:
                 tags.append('from user')
@@ -126,10 +126,10 @@ class AspectParser:
                 tags.append('default')
             if a.explicit is not None and a.explicit != value:
                 tags.append('modified')
-            print '(' + ', '.join(tags) + ')'
-        print
-        print "***"
-        print
+            print('(' + ', '.join(tags) + ')')
+        print()
+        print("***")
+        print()
 
     def Help(self):
         '''
@@ -152,22 +152,22 @@ class AspectParser:
                 globls = {}
                 values = eval(f.read(), globls)
                 self.Load(values, filename)
-                print 'Loaded configuration from', filename
+                print('Loaded configuration from', filename)
             finally:
                 f.close()
         except IOError:
             pass    # Don't care if the file doesn't exist
 
     def Load(self, args, source):
-        for name, value in args.iteritems():
+        for name, value in args.items():
             if name in self:
                 self[name] = value
             else:
-                raise RuntimeError, name + ' is not a valid option (' + source + ')'
+                raise RuntimeError(name + ' is not a valid option (' + source + ')')
 
     def Save(self, filename):
         explicit = {}
-        for aspect in self.aspects.values():
+        for aspect in list(self.aspects.values()):
             if aspect.explicit is not None:
                 explicit[aspect.name] = aspect.explicit
         f = file(filename, 'w')

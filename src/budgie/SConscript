@@ -10,7 +10,7 @@ budgie_env.Prepend(CPPPATH = [Dir('.')])
 conf = Configure(budgie_env, custom_tests = BugleChecks.tests, config_h = 'config.h')
 if not conf.CheckLibWithHeader(None, 'regex.h', 'c++', 'regcomp(0, 0, 0);'):
     if not conf.CheckLibWithHeader('regex', 'regex.h', 'c++', 'regcomp(0, 0, 0);'):
-        print "A regex library is required"
+        print("A regex library is required")
         Exit(1)
 budgie_env = conf.Finish()
 

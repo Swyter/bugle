@@ -79,7 +79,7 @@ def _build_shared_library(env, binfmt, target, source, bindir = None, libdir = N
                         install_env.AddPostAction(targets, SCons.Action.Action('-ldconfig', '$LDCONFIGCOMSTR'))
                 return base_target
             else:
-                raise NotImplemented, 'Do not know how to set SONAME without GCC'
+                raise NotImplemented('Do not know how to set SONAME without GCC')
         else:
             shl_list = env.SharedLibrary(target, source, **kw)
             if libdir is not None:
@@ -104,9 +104,9 @@ def _build_shared_library(env, binfmt, target, source, bindir = None, libdir = N
                 env.Install(target = bindir, source = outputs[0])
             return [outputs[0]]
         else:
-            raise NotImplemented, 'Do not know how to build shared libraries for PE without MSVC'
+            raise NotImplemented('Do not know how to build shared libraries for PE without MSVC')
     else:
-        raise NotImplemented, 'Do not know how to build shared libraries for ' + binfmt
+        raise NotImplemented('Do not know how to build shared libraries for ' + binfmt)
 
 def _c_cxx_file(env, builder, source, srcdir, package_sources, **kw):
     '''

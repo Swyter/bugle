@@ -7,7 +7,7 @@ def _wrapper(self, target, source, replacements, **kw):
 def substfile(target, source, env):
     src = source[0].get_contents()
     substs = source[1].read()
-    for key, value in substs.iteritems():
+    for key, value in substs.items():
         src = src.replace('@' + key + '@', value)
     f = open(str(target[0]), 'wb')
     f.write(src)

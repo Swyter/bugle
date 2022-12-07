@@ -19,7 +19,7 @@ def bc_scanner_function(node, env, path, arg = None):
     for x in matches:
         dep = env.FindFile(x, path)
         if dep is None:
-            raise NameError, "Could not find " + x
+            raise NameError("Could not find " + x)
         else:
             deps.append(dep)
     return deps

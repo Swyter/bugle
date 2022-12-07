@@ -22,7 +22,7 @@ class CrossEnvironment(Environment):
         to looking for a native tool
         """
 
-        if self.has_key('HOST'):
+        if 'HOST' in self:
             if not SCons.Util.is_List(progs):
                 progs = [ progs ]
             if progs[0] in self._cross_tools:
@@ -31,6 +31,6 @@ class CrossEnvironment(Environment):
                     path = self.WhereIs(cross_prog)
                     if path: return cross_prog
                 # If we get here, we failed to find a cross-tool above
-                print 'WARNING: did not find %s-%s, falling back' % (self['HOST'], progs[0])
+                print('WARNING: did not find %s-%s, falling back' % (self['HOST'], progs[0]))
 
         return Environment.Detect(self, progs)
